@@ -52,7 +52,8 @@ namespace Анархия_в_больнице
 
             while (isWork)
             {
-                ShowInfo();
+                Console.WriteLine("Список всех больных\n");
+                ShowInfo(_patients);
 
                 Console.WriteLine();
                 Console.WriteLine($"{CommandSortByName} - Сортиравка по имени");
@@ -91,10 +92,7 @@ namespace Анархия_в_больнице
 
             var sortedList = _patients.Where(patient => patient.Name == introducedName);
 
-            foreach (Patient patient in sortedList)
-            {
-                patient.ShowInfo();
-            }
+            ShowInfo(sortedList);
         }
 
         private void SortByAge()
@@ -104,10 +102,7 @@ namespace Анархия_в_больнице
 
             var sortedList = _patients.Where(patient => patient.Age == introducedAge);
 
-            foreach (Patient patient in sortedList)
-            {
-                patient.ShowInfo();
-            }
+            ShowInfo(sortedList);
         }
 
         private void SortByDisease()
@@ -117,10 +112,7 @@ namespace Анархия_в_больнице
 
             var sortedList = _patients.Where(patient => patient.Disease == introducedDisease);
 
-            foreach (Patient patient in sortedList)
-            {
-                patient.ShowInfo();
-            }
+            ShowInfo(sortedList);
         }
 
         private List<Patient> Create()
@@ -142,11 +134,17 @@ namespace Анархия_в_больнице
             return patients;
         }
 
-        private void ShowInfo()
+        private void ShowInfo(List<Patient> patients)
         {
-            Console.WriteLine("Список всех больных\n");
+            foreach (Patient patient in patients)
+            {
+                patient.ShowInfo();
+            }
+        }
 
-            foreach (Patient patient in _patients)
+        private void ShowInfo(IEnumerable<Patient> patients)
+        {
+            foreach (Patient patient in patients)
             {
                 patient.ShowInfo();
             }
@@ -164,7 +162,7 @@ namespace Анархия_в_больнице
 
                 if (result == false)
                 {
-                    Console.WriteLine("Ошибка. Введите год.");
+                    Console.WriteLine("Ошибка. Введите число.");
                 }
             }
 
